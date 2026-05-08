@@ -30,7 +30,6 @@ def main(page: ft.Page):
             height=45,
             content_padding=12,
             margin=ft.Margin.only(left=20, right=20),
-            
         )
     
     def main_button(text, color=ACCENT, on_click=None):
@@ -256,6 +255,79 @@ def main(page: ft.Page):
 
     def go_dashboard(e):
         page.controls.clear()
+        page.scroll = ft.ScrollMode.AUTO
+
+        atividades = [
+            {
+                "nome": "Conversação Japonês",
+                "horario": "08h30 - 09h30",
+                "imagem": "assets/japa.jpg",
+            },
+            {
+                "nome": "Conversação Mandarim",
+                "horario": "10h00 - 11h00",
+                "imagem": "assets/japa.jpg",
+            },
+            {
+                "nome": "Kenko Taíso",
+                "horario": "11h30 - 12h30",
+                "imagem": "assets/japa.jpg",
+            },
+            {
+                "nome": "Smartphone",
+                "horario": "14h00 - 15h00",
+                "imagem": "assets/japa.jpg",
+            },
+            {
+                "nome": "Dança de Salão",
+                "horario": "16h00 - 17h00",
+                "imagem": "assets/japa.jpg",
+            },
+        ]
+
+        indice = {"valor": 0}
+
+        atividade_nome = ft.Text(
+            atividades[indice["valor"]]["nome"],
+            size=28,
+            weight=ft.FontWeight.BOLD,
+            color=ACCENT,
+            text_align=ft.TextAlign.CENTER,
+            width=220,
+            max_lines=2,
+        )       
+
+        atividade_imagem = ft.Image(
+            src=atividades[indice["valor"]]["imagem"],
+            width=280,
+            height=220,
+            fit="contain",
+            border_radius=20,
+        )
+
+        atividade_horario = ft.Text(
+            atividades[indice["valor"]]["horario"],
+            size=22,
+            weight=ft.FontWeight.BOLD,
+            color=PRIMARY,
+            text_align=ft.TextAlign.CENTER,
+        )
+
+        def atualizar():
+            atividade_nome.value = atividades[indice["valor"]]["nome"]
+            atividade_imagem.src = atividades[indice["valor"]]["imagem"]
+            atividade_horario.value = atividades[indice["valor"]]["horario"]
+            page.update()
+
+        def proximo(e):
+            if indice["valor"] < len(atividades) - 1:
+                indice["valor"] += 1
+                atualizar()
+
+        def voltar(e):
+            if indice["valor"] > 0:
+                indice["valor"] -= 1
+                atualizar()
 
         header = ft.Row(
             controls=[
@@ -282,6 +354,13 @@ def main(page: ft.Page):
             text_align=ft.TextAlign.CENTER,
         )
 
+        trofeu = ft.Image(
+            src="assets/trofeu.jpg",
+            width=140,
+            height=140,
+            fit="contain",
+        )
+
         pontos = ft.Text(
             "Sua pontuação mensal é de\nXX pontos!",
             size=20,
@@ -298,155 +377,46 @@ def main(page: ft.Page):
             text_align=ft.TextAlign.CENTER,
         )
 
-        agenda = ft.Container(
-            content=ft.Column(
-                controls=[
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "HORA",
-                                    color=ACCENT,
-                                    weight=ft.FontWeight.BOLD,
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "ATIVIDADE",
-                                    color=ACCENT,
-                                    weight=ft.FontWeight.BOLD,
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER,
+        navegacao = ft.Row(
+            controls=[
+                ft.Container(
+                    content=ft.IconButton(
+                        icon=ft.Icons.ARROW_BACK_IOS,
+                        icon_color=PRIMARY,
+                        icon_size=30,
+                        on_click=voltar,
                     ),
+                    width=50,
+                    alignment=ft.Alignment.CENTER,
+                ),
 
-                    ft.Row(
+                ft.Container(
+                    content=ft.Column(
                         controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "08h30-09h30",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "Conversação\nJaponês",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
+                            atividade_nome,
+                            atividade_imagem,
+                            atividade_horario,
                         ],
-                        alignment=ft.MainAxisAlignment.CENTER,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        spacing=18,
                     ),
+                    expand=True,
+                    alignment=ft.Alignment.CENTER,
+                ),
 
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "08h30-09h30",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "Conversação\nMandarim",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER,
+                ft.Container(
+                    content=ft.IconButton(
+                        icon=ft.Icons.ARROW_FORWARD_IOS,
+                        icon_color=PRIMARY,
+                        icon_size=30,
+                        on_click=proximo,
                     ),
-
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "08h30-09h30",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "Kenko Taíso",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER,
-                    ),
-
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "08h30-09h30",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "Smartphone",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER,
-                    ),
-
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=ft.Text(
-                                    "08h30-09h30",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=140,
-                            ),
-
-                            ft.Container(
-                                content=ft.Text(
-                                    "Dança de Salão",
-                                    color="#4e310a",
-                                    text_align=ft.TextAlign.CENTER,
-                                ),
-                                width=180,
-                            ),
-                        ],
-                        alignment=ft.MainAxisAlignment.CENTER,
-                    ),
-                ],
-                spacing=16,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            ),
-            padding=20,
-            bgcolor=BG,
-            border_radius=15,
+                    width=50,
+                    alignment=ft.Alignment.CENTER,
+                ),
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         card = ft.Container(
@@ -455,11 +425,12 @@ def main(page: ft.Page):
                     header,
                     ola,
                     pontos,
+                    trofeu,
                     agenda_titulo,
-                    agenda,
+                    navegacao,
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=16,
+                spacing=20,
             ),
             bgcolor="#c4dbc1",
             border_radius=20,
@@ -485,7 +456,7 @@ def main(page: ft.Page):
         page.controls.clear()
         page.bgcolor=BG
         titulo = ft.Container(
-            content=ft.Text(
+            content=ft.Text( 
                 "ENKYO",
                 size=45,
                 weight=ft.FontWeight.BOLD,
