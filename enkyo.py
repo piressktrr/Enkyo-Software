@@ -1,5 +1,5 @@
 import flet as ft   
-
+from componentes.componentesarquivo import input_field
 #aqui são as cores bases, pra nn ter que ficar reescrevento
 
 PRIMARY = "#3E8E41"
@@ -15,43 +15,8 @@ def main(page: ft.Page):
 
     #componentes reutilizaveis (talvez, acho que vai ser util, vou ver ainda se vai ficar grande o codigo)
 
-    def input_field(label, password=False, color=BG):
-        return ft.TextField(
-            label=label,
-            password=password,
-            color=color,
-            border=ft.InputBorder.OUTLINE,
-            border_color="transparent",
-            border_radius=20,
-            filled=True,
-            bgcolor="#EDE6D6",
-            text_size=15,
-            width=260,
-            height=45,
-            content_padding=12,
-            margin=ft.Margin.only(left=20, right=20),
-        )
     
-    def main_button(text, color=ACCENT, on_click=None):
-        return ft.Button(
-            text,
-            bgcolor=color,
-            color="white",
-            width=200,
-            height=45,
-            on_click=on_click,
-            margin=ft.Margin.only(left=20, right=20),
-            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=12))
-        )
-    
-    def form_container(content):
-        return ft.Container(
-            content=content,
-            bgcolor="#C7D9C1",
-            border_radius=20,
-            padding=25,
-        )
-
+    input_field
     #aqui são as pages 
     #
     #
