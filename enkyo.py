@@ -14,6 +14,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"  
 
+
     #componentes reutilizaveis (talvez, acho que vai ser util, vou ver ainda se vai ficar grande o codigo)
 
     
@@ -128,7 +129,92 @@ def main(page: ft.Page):
         page.update()
             
 
+    def atualizar_senha(e):
+        page.controls.clear()
 
+        titulo = ft.Container(
+            content=ft.Text(
+                "Atualizar sua Senha!",
+                size=26,
+                weight=ft.FontWeight.BOLD,
+                color="white",
+                text_align=ft.TextAlign.CENTER,
+            ),
+            bgcolor=PRIMARY,
+            padding=15,
+            border_radius=12,
+        )
+
+        subtitulo = ft.Text(
+            "CAMPO DEDICADO APENAS PARA ALTERAR SUA SENHA, TENHA CERTEZA DO QUE ESTÁ FAZENDO!",
+            color="#000000",
+            size=16,
+            weight=ft.FontWeight.BOLD,
+            text_align=ft.TextAlign.CENTER,
+
+        )
+
+        senha_atual = comp.input_field("Senha atual")
+        senha_nova = comp.input_field("Nova senha")
+        confirmar_senha = comp.input_field("Confirmar nova senha")
+
+        form = ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Row(
+                        controls=[titulo],
+                        alignment=ft.MainAxisAlignment.CENTER,
+                    ),
+
+                    ft.Container(height=10),
+                    subtitulo,
+
+                    ft.Text(
+                        "Senha atual",
+                        color="#000000",
+                        size=20,
+                        weight=ft.FontWeight.BOLD,
+                    ),
+                    senha_atual,
+
+                    ft.Text(
+                        "Nova senha",
+                        color="#000000",
+                        size=20,
+                        weight=ft.FontWeight.BOLD,
+                    ),
+                    senha_nova,
+
+                    ft.Text(
+                        "Confirmar nova senha",
+                        color="#000000",
+                        size=20,
+                        weight=ft.FontWeight.BOLD,
+                    ),
+                    confirmar_senha,
+
+                    ft.Container(height=15),
+
+                    comp.main_button("CONFIRMAR", on_click=None), ## fazer aqui pra ele confirmar que realmente quer trocar a senha
+                    comp.main_button("VOLTAR", on_click=home),
+                ],
+                spacing=5,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            ),
+            bgcolor="#c4dbc1",
+            border_radius=20,
+            padding=20,
+            width=360,
+        )
+
+        page.add(
+            ft.Row(
+                controls=[form],
+                alignment=ft.MainAxisAlignment.CENTER,
+            )
+        )
+
+        page.update()
 
 
 
@@ -422,10 +508,11 @@ def main(page: ft.Page):
 
 
 
-
     def home(e=None):
         page.controls.clear()
         page.bgcolor=BG
+
+
         titulo = ft.Container(
             content=ft.Text( 
                 "ENKYO",
@@ -450,6 +537,8 @@ def main(page: ft.Page):
             controls=[
                 comp.main_button("Entrar", color=ACCENT, on_click=go_login),
                 comp.main_button("Cadastrar", color=ACCENT, on_click=go_register),
+                comp.main_button("Esqueci minha senha", color=ACCENT, on_click=atualizar_senha),
+                comp.main_button("Sair", color=ACCENT, on_click=page.window.close),
             ],
             spacing=12,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
