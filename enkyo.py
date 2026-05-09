@@ -131,6 +131,7 @@ def main(page: ft.Page):
 
     def atualizar_senha(e):
         page.controls.clear()
+        page.on_resize = None
 
         titulo = ft.Container(
             content=ft.Text(
@@ -161,7 +162,7 @@ def main(page: ft.Page):
         form = ft.Container(
             content=ft.Column(
                 controls=[
-                    ft.Row(
+                    ft.ResponsiveRow(
                         controls=[titulo],
                         alignment=ft.MainAxisAlignment.CENTER,
                     ),
@@ -204,14 +205,28 @@ def main(page: ft.Page):
             bgcolor="#c4dbc1",
             border_radius=20,
             padding=20,
-            width=360,
+            
         )
+
+        def teste_largura(e):
+            w = page.width
+            if w < 480:
+                form.width = w * 0.95      # celular -> ocupa quase toda a tela do celular, mas pelo oq parece ta se adaptando
+            elif w < 900:
+                form.width = w * 0.60      # tablet -> ocupa o tamanho da tela necessaria do tablet
+            else:
+                form.width = 420           # desktop -> fixo 420px
+            page.update()
+
+        page.on_resize = teste_largura
+        teste_largura(None)  
+
 
         page.add(
             ft.Row(
                 controls=[form],
                 alignment=ft.MainAxisAlignment.CENTER,
-            )
+            ),
         )
 
         page.update()
@@ -385,6 +400,14 @@ def main(page: ft.Page):
             if indice["valor"] > 0:
                 indice["valor"] -= 1
                 atualizar()
+        
+        
+        engrenagem = ft.Image(
+            src="assets/engrenagem.png",
+            width=30,
+            height=30,
+            fit="contain",
+        )
 
         header = ft.Row(
             controls=[
@@ -399,8 +422,13 @@ def main(page: ft.Page):
                     "SAIR",
                     on_click=home,
                 ),
+
+                comp.main_button(
+                    engrenagem,
+                    on_click=None,
+                ),
             ],
-            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            alignment=ft.MainAxisAlignment.CENTER,
         )
 
         ola = ft.Text(
@@ -509,6 +537,7 @@ def main(page: ft.Page):
 
 
     def home(e=None):
+        page.scroll = None
         page.controls.clear()
         page.bgcolor=BG
 
@@ -537,7 +566,7 @@ def main(page: ft.Page):
             controls=[
                 comp.main_button("Entrar", color=ACCENT, on_click=go_login),
                 comp.main_button("Cadastrar", color=ACCENT, on_click=go_register),
-                comp.main_button("Esqueci minha senha", color=ACCENT, on_click=atualizar_senha),
+                comp.main_button("Atualizar senha", color=ACCENT, on_click=atualizar_senha),
                 comp.main_button("Sair", color=ACCENT, on_click=page.window.close),
             ],
             spacing=12,

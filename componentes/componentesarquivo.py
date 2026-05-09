@@ -5,19 +5,19 @@ ACCENT = "#E74C6E"
 BG = "#F5EBDD"
 
  
-def input_field(label, password=False, color=BG):
+def input_field(label, password=False, color="#000000"):
             return ft.TextField(
                 label=label,
                 password=password,
                 color=color,
                 border=ft.InputBorder.OUTLINE,
                 border_color="transparent",
-                border_radius=20,
+                border_radius=30,
                 filled=True,
                 bgcolor="#EDE6D6",
                 text_size=15,
-                width=260,
-                height=45,
+                width=280,
+                height=50,
                 content_padding=12,
                 margin=ft.Margin.only(left=20, right=20),
             )
@@ -28,7 +28,7 @@ def main_button(text, color=ACCENT, on_click=None):
                 bgcolor=color,
                 color="white",
                 width=200,
-                height=45,
+                height=50,
                 on_click=on_click,
                 margin=ft.Margin.only(left=20, right=20),
                 style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=12))
