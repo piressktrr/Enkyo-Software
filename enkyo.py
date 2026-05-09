@@ -1,5 +1,6 @@
 import flet as ft   
-from componentes.componentesarquivo import input_field
+import componentes.componentesarquivo as comp 
+
 #aqui são as cores bases, pra nn ter que ficar reescrevento
 
 PRIMARY = "#3E8E41"
@@ -16,7 +17,12 @@ def main(page: ft.Page):
     #componentes reutilizaveis (talvez, acho que vai ser util, vou ver ainda se vai ficar grande o codigo)
 
     
-    input_field
+    comp.input_field(page.title, password=False, color=BG)
+    comp.main_button("Entrar", color=ACCENT, on_click=None)
+    comp.form_container(comp.input_field("Cadastrar"))
+
+
+
     #aqui são as pages 
     #
     #
@@ -48,8 +54,8 @@ def main(page: ft.Page):
             weight=ft.FontWeight.W_600,
         )
 
-        telefone = input_field("Telefone")
-        senha = input_field("Senha", password=True)
+        telefone = comp.input_field("Telefone")
+        senha = comp.input_field("Senha", password=True)
 
         form = ft.Container(
             content=ft.Column(
@@ -94,8 +100,8 @@ def main(page: ft.Page):
 
                     ft.Container(height=12),
 
-                    main_button("CONFIRMAR", on_click=go_dashboard),
-                    main_button("VOLTAR", on_click=home),
+                    comp.main_button("CONFIRMAR", on_click=go_dashboard),
+                    comp.main_button("VOLTAR", on_click=home),
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 spacing=10,
@@ -144,10 +150,10 @@ def main(page: ft.Page):
             border_radius=12,
         )
 
-        nome = input_field("Nome completo")
-        telefone = input_field("Telefone")
-        senha = input_field("Senha", password=True)
-        confirmar = input_field("Confirmar senha", password=True)
+        nome = comp.input_field("Nome completo")
+        telefone = comp.input_field("Telefone")
+        senha = comp.input_field("Senha", password=True)
+        confirmar = comp.input_field("Confirmar senha", password=True)
 
         form = ft.Container(
             content=ft.Column(
@@ -193,8 +199,8 @@ def main(page: ft.Page):
 
                     ft.Container(height=15),
 
-                    main_button("CONFIRMAR", on_click=go_dashboard),
-                    main_button("VOLTAR", on_click=home),
+                    comp.main_button("CONFIRMAR", on_click=go_dashboard),
+                    comp.main_button("VOLTAR", on_click=home),
                 ],
                 spacing=10,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -303,7 +309,7 @@ def main(page: ft.Page):
                     weight=ft.FontWeight.BOLD,
                 ),
 
-                main_button(
+                comp.main_button(
                     "SAIR",
                     on_click=home,
                 ),
@@ -442,8 +448,8 @@ def main(page: ft.Page):
 
         botoes = ft.Column( 
             controls=[
-                main_button("Entrar", color=ACCENT, on_click=go_login),
-                main_button("Cadastrar", color=ACCENT, on_click=go_register),
+                comp.main_button("Entrar", color=ACCENT, on_click=go_login),
+                comp.main_button("Cadastrar", color=ACCENT, on_click=go_register),
             ],
             spacing=12,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
