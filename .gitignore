@@ -1,4 +1,3 @@
 enkyobackup.py
 .gitattributes
-projetointegrador\Enkyo Software\pages\__pycache__
-projetointegrador\Enkyo Software\componentes\__pycache__
+pages/__pycache__
