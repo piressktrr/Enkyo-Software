@@ -4,14 +4,13 @@ import componentes.componentesarquivo as comp
 PRIMARY = "#3E8E41"
 BG = "#F5EBDD"
 
-class RegisterView(ft.View):
+class AtualizarSenhaView(ft.View):
 
     def __init__(self, page: ft.Page):
 
-        nome = comp.input_field("Nome completo")
-        telefone = comp.input_field("Telefone")
-        senha = comp.input_field("Senha", password=True)
-        confirmar = comp.input_field("Confirmar senha", password=True)
+        senha_atual = comp.input_field("Senha atual")
+        senha_nova = comp.input_field("Nova senha")
+        confirmar_senha = comp.input_field("Confirmar nova senha")
 
         form = ft.Container(
             content=ft.Column(
@@ -20,7 +19,7 @@ class RegisterView(ft.View):
                         controls=[
                             ft.Container(
                                 content=ft.Text(
-                                    "CADASTRO",
+                                    "Atualizar sua Senha!",
                                     size=26,
                                     weight=ft.FontWeight.BOLD,
                                     color="white",
@@ -37,46 +36,45 @@ class RegisterView(ft.View):
                     ft.Container(height=10),
 
                     ft.Text(
-                        "Nome completo",
-                        color="#4e310a",
-                        size=20,
-                        weight=ft.FontWeight.W_500,
+                        "CAMPO DEDICADO APENAS PARA ALTERAR SUA SENHA, TENHA CERTEZA DO QUE ESTÁ FAZENDO!",
+                        color="#000000",
+                        size=16,
+                        weight=ft.FontWeight.BOLD,
+                        text_align=ft.TextAlign.CENTER,
                     ),
-
-                    nome,
 
                     ft.Text(
-                        "Telefone",
-                        color="#4e310a",
+                        "Senha atual",
+                        color="#000000",
                         size=20,
-                        weight=ft.FontWeight.W_500,
+                        weight=ft.FontWeight.BOLD,
                     ),
 
-                    telefone,
+                    senha_atual,
 
                     ft.Text(
-                        "Senha",
-                        color="#4e310a",
+                        "Nova senha",
+                        color="#000000",
                         size=20,
-                        weight=ft.FontWeight.W_500,
+                        weight=ft.FontWeight.BOLD,
                     ),
 
-                    senha,
+                    senha_nova,
 
                     ft.Text(
-                        "Confirmação da Senha",
-                        color="#4e310a",
+                        "Confirmar nova senha",
+                        color="#000000",
                         size=20,
-                        weight=ft.FontWeight.W_500,
+                        weight=ft.FontWeight.BOLD,
                     ),
 
-                    confirmar,
+                    confirmar_senha,
 
                     ft.Container(height=15),
 
                     comp.main_button(
                         "CONFIRMAR",
-                        on_click=self.go_dashboard
+                        on_click=None
                     ),
 
                     comp.main_button(
@@ -84,7 +82,7 @@ class RegisterView(ft.View):
                         on_click=self.go_home
                     ),
                 ],
-                spacing=10,
+                spacing=5,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
             bgcolor="#c4dbc1",
@@ -94,7 +92,7 @@ class RegisterView(ft.View):
         )
 
         super().__init__(
-            route="/register",
+            route="/senha",
             controls=[
                 ft.Row(
                     controls=[form],
@@ -103,9 +101,6 @@ class RegisterView(ft.View):
             ],
             bgcolor=BG
         )
-
-    async def go_dashboard(self, e):
-        await self.page.push_route("/dashboard")
 
     async def go_home(self, e):
         await self.page.push_route("/")
